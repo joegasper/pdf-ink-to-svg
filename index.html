@@ -1,0 +1,155 @@
+<!doctype html>
+<!--
+  PDF Ink to SVG — extract handwritten ink annotations from a PDF as SVG files.
+  https://github.com/joegasper/pdf-ink-to-svg
+
+  SPDX-License-Identifier: MIT
+  Copyright (c) 2026 Joe Gasper
+
+  Uses pdf.js (Apache-2.0) from vendor/pdfjs — see vendor/pdfjs/LICENSE.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="Extract handwritten ink annotations from a PDF as SVG files. Runs entirely in your browser; nothing is uploaded.">
+  <!-- Everything runs locally. No scripts, styles, or connections from anywhere but this site. -->
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'none'; script-src 'self'; style-src 'self'; worker-src 'self' blob:; img-src 'self' data: blob:; connect-src 'self'; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="no-referrer">
+  <title>PDF Ink to SVG</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M4 24c6-14 10-14 12-4s4 8 12-8' fill='none' stroke='%2323408E' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+  <!-- Blocking on purpose: applies the saved theme before the first paint. -->
+  <script src="theme.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#results" data-i18n="skip">Skip to results</a>
+
+  <header class="site-header">
+    <div class="brand">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+        <path d="M4 24c6-14 10-14 12-4s4 8 12-8" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="brand-name">PDF Ink to SVG</span>
+    </div>
+    <div class="header-controls">
+      <label class="lang-picker">
+        <span class="visually-hidden" data-i18n="language.label">Language</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/>
+          <path d="M3 12h18M12 3c2.5 2.6 3.8 5.7 3.8 9S14.5 18.4 12 21c-2.5-2.6-3.8-5.7-3.8-9S9.5 5.6 12 3z"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+        </svg>
+        <select id="lang-select"></select>
+      </label>
+      <div class="theme-toggle" id="theme-toggle" role="radiogroup" aria-label="Colour theme" data-i18n-label="theme.group">
+        <button type="button" data-mode="light" role="radio" aria-checked="false" title="Light theme" data-i18n-title="theme.light">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="2"/>
+            <path d="M12 2.5v2.2M12 19.3v2.2M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"
+                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <span class="visually-hidden" data-i18n="theme.light.short">Light</span>
+        </button>
+        <button type="button" data-mode="system" role="radio" aria-checked="true" title="Match system theme" data-i18n-title="theme.system">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <rect x="2.8" y="4" width="18.4" height="12.5" rx="1.8" fill="none" stroke="currentColor" stroke-width="2"/>
+            <path d="M8.5 20.5h7M12 16.5v4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <span class="visually-hidden" data-i18n="theme.system.short">System</span>
+        </button>
+        <button type="button" data-mode="dark" role="radio" aria-checked="false" title="Dark theme" data-i18n-title="theme.dark">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M20.5 14.3A8.6 8.6 0 0 1 9.7 3.5a8.6 8.6 0 1 0 10.8 10.8z"
+                  fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+          </svg>
+          <span class="visually-hidden" data-i18n="theme.dark.short">Dark</span>
+        </button>
+      </div>
+      <a class="repo-link" href="https://github.com/joegasper/pdf-ink-to-svg" rel="noopener noreferrer" target="_blank">
+        <svg viewBox="0 0 16 16" width="20" height="20" aria-hidden="true" focusable="false">
+          <path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+        </svg>
+        <span class="repo-link-text" data-i18n="repo">View on GitHub</span>
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro">
+      <h1 data-i18n="intro.title">Turn the handwriting in a PDF into SVG</h1>
+      <p data-i18n="intro.body">Drop in a PDF that was signed or marked up with a pen or stylus. Each drawing comes out as a crisp, scalable SVG you can download — including handwriting that has been flattened into the page.</p>
+    </section>
+
+    <form class="dropzone" id="dropzone" aria-labelledby="dropzone-title">
+      <input type="file" id="file-input" accept="application/pdf,.pdf" multiple class="visually-hidden">
+      <label for="file-input" class="dropzone-label">
+        <svg class="dropzone-icon" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+          <path d="M24 30V10m0 0-7 7m7-7 7 7" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M10 30v6a2 2 0 0 0 2 2h24a2 2 0 0 0 2-2v-6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+        <span id="dropzone-title" class="dropzone-title" data-i18n="dropzone.title">Drop a PDF here, or choose a file</span>
+        <span class="dropzone-hint" data-i18n="dropzone.hint">You can add several PDFs at once.</span>
+      </label>
+      <div class="options">
+        <label class="option">
+          <input type="checkbox" id="opt-page-size">
+          <span data-i18n="option.keepPageSize">Keep page coordinates (SVG matches the full page instead of being cropped to the ink)</span>
+        </label>
+      </div>
+    </form>
+
+    <p class="privacy">
+      <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false">
+        <path d="M10 2 4 4.5v5c0 3.9 2.6 7.3 6 8.5 3.4-1.2 6-4.6 6-8.5v-5L10 2z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+        <path d="m7.3 10 2 2 3.5-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span data-i18n="privacy">Your files stay on your device. Everything happens in this browser tab: the PDF is never uploaded and nothing is sent anywhere. The only things kept between visits are your theme and language choices.</span>
+    </p>
+
+    <div id="status" class="status" role="status" aria-live="polite"></div>
+
+    <section id="results" class="results" aria-label="Extracted ink">
+      <div class="results-header" id="results-header" hidden>
+        <h2 id="results-title" data-i18n="results.title">Extracted ink</h2>
+        <div class="results-actions">
+          <button type="button" id="download-all" class="button" data-i18n="results.downloadAll">Download all</button>
+          <button type="button" id="clear" class="button button-quiet" data-i18n="results.clear">Clear</button>
+        </div>
+      </div>
+      <p id="flattened-note" class="results-note" hidden data-i18n-rich="results.flattenedNote">
+        Results marked <strong data-slot="badge">Flattened</strong> were found by looking for hand-drawn-looking strokes in the page itself. Dense vector graphics, such as a chart line, can look the same — check the preview before downloading.
+      </p>
+      <ul id="cards" class="cards"></ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p data-i18n-rich="footer">Open source under the MIT License. Built with <a data-slot="pdfjs" href="https://mozilla.github.io/pdf.js/" rel="noopener noreferrer" target="_blank">pdf.js</a>.</p>
+    <p class="site-version">
+      <a id="version-link" href="https://github.com/joegasper/pdf-ink-to-svg/blob/main/CHANGELOG.md"
+         rel="noopener noreferrer" target="_blank"></a>
+    </p>
+  </footer>
+
+  <template id="card-template">
+    <li class="card">
+      <figure class="card-figure">
+        <div class="paper"></div>
+        <figcaption class="card-caption">
+          <span class="card-badge"></span>
+          <span class="card-title"></span>
+          <span class="card-meta"></span>
+        </figcaption>
+      </figure>
+      <div class="card-actions">
+        <a class="button card-download" download data-i18n="card.download">Download SVG</a>
+      </div>
+    </li>
+  </template>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

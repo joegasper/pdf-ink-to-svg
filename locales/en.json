@@ -1,0 +1,110 @@
+{
+  "meta.title": "PDF Ink to SVG",
+  "meta.description": "Extract handwritten ink annotations from a PDF as SVG files. Runs entirely in your browser; nothing is uploaded.",
+  "skip": "Skip to results",
+  "language.label": "Language",
+  "theme.group": "Colour theme",
+  "theme.light": "Light theme",
+  "theme.system": "Match system theme",
+  "theme.dark": "Dark theme",
+  "theme.light.short": "Light",
+  "theme.system.short": "System",
+  "theme.dark.short": "Dark",
+  "repo": "View on GitHub",
+  "intro.title": "Turn the handwriting in a PDF into SVG",
+  "intro.body": "Drop in a PDF that was signed or marked up with a pen or stylus. Each drawing comes out as a crisp, scalable SVG you can download — including handwriting that has been flattened into the page.",
+  "dropzone.title": "Drop a PDF here, or choose a file",
+  "dropzone.hint": "You can add several PDFs at once.",
+  "option.keepPageSize": "Keep page coordinates (SVG matches the full page instead of being cropped to the ink)",
+  "privacy": "Your files stay on your device. Everything happens in this browser tab: the PDF is never uploaded and nothing is sent anywhere. The only things kept between visits are your theme and language choices.",
+  "results.title": "Extracted ink",
+  "results.downloadAll": "Download all",
+  "results.clear": "Clear",
+  "results.flattenedNote": "Results marked {badge} were found by looking for hand-drawn-looking strokes in the page itself. Dense vector graphics, such as a chart line, can look the same — check the preview before downloading.",
+  "results.flattenedNote.badge": "Flattened",
+  "footer": "Open source under the MIT License. Built with {pdfjs}.",
+  "footer.pdfjs": "pdf.js",
+  "footer.version": "Version {version}",
+  "card.download": "Download SVG",
+  "card.downloadLabel": "Download {name}",
+  "card.meta": "Page {page} · {strokes}, {points}",
+  "card.previewLabel": "{source} {index} from page {page}",
+  "badge.annotation": "Annotation",
+  "badge.flattened": "Flattened",
+  "badge.annotation.title": "Read from a PDF ink annotation",
+  "badge.flattened.title": "Recovered from stroke data drawn into the page content",
+  "source.annotation": "ink annotation",
+  "source.flattened": "flattened ink",
+  "unit.stroke": {
+    "one": "{count} stroke",
+    "other": "{count} strokes"
+  },
+  "unit.point": {
+    "one": "{count} point",
+    "other": "{count} points"
+  },
+  "unit.file": {
+    "one": "{count} file",
+    "other": "{count} files"
+  },
+  "unit.image": {
+    "one": "{count} embedded image",
+    "other": "{count} embedded images"
+  },
+  "unit.nonPdf": {
+    "one": "{count} non-PDF file",
+    "other": "{count} non-PDF files"
+  },
+  "status.onlyPdf": "Only PDF files can be read. Choose a file that ends in .pdf.",
+  "status.reading": "Reading {files}…",
+  "status.extracted": {
+    "one": "Extracted {count} drawing.",
+    "other": "Extracted {count} drawings."
+  },
+  "status.allFlattened": "Recovered from strokes flattened into the page, not from ink annotations.",
+  "status.someFlattened": {
+    "one": "{count} of them was flattened into the page rather than stored as an ink annotation.",
+    "other": "{count} of them were flattened into the page rather than stored as an ink annotation."
+  },
+  "status.skipped": "{files} skipped.",
+  "status.nothing": "Nothing was extracted.",
+  "problem.prefix": "{file}: {reason}",
+  "noInk.imageNote": " The pages do contain {images}, so the handwriting was most likely scanned or rasterised into one of them — that turns the strokes into pixels, which cannot be recovered as vectors. Tracing it in a drawing program is the only route from there.",
+  "noInk.none": "no ink annotations and no stroke data in the page content.",
+  "noInk.noneHint": " If handwriting is visible on the page, it was drawn as something this tool does not read — an embedded image, or text in a script font.",
+  "noInk.others": "no ink. This PDF has {list} instead, which hold no pen strokes.",
+  "annot.formField": {
+    "one": "{count} form field",
+    "other": "{count} form fields"
+  },
+  "annot.hiddenInk": {
+    "one": "{count} hidden ink annotation",
+    "other": "{count} hidden ink annotations"
+  },
+  "annot.inkNoPoints": {
+    "one": "{count} ink annotation without point data",
+    "other": "{count} ink annotations without point data"
+  },
+  "annot.other": {
+    "one": "{count} {kind} annotation",
+    "other": "{count} {kind} annotations"
+  },
+  "error.password": "this PDF is password protected. Remove the password and try again.",
+  "error.invalid": "this file is not a valid PDF or is damaged.",
+  "error.unknown": "could not be read.",
+  "subtype.stamp": "stamp",
+  "subtype.square": "rectangle",
+  "subtype.circle": "ellipse",
+  "subtype.highlight": "highlight",
+  "subtype.underline": "underline",
+  "subtype.strikeout": "strikeout",
+  "subtype.squiggly": "squiggly underline",
+  "subtype.freetext": "free text",
+  "subtype.text": "sticky note",
+  "subtype.line": "line",
+  "subtype.polygon": "polygon",
+  "subtype.polyline": "polyline",
+  "subtype.link": "link",
+  "subtype.popup": "pop-up",
+  "subtype.fileattachment": "file attachment"
+}

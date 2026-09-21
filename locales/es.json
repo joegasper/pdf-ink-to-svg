@@ -1,0 +1,110 @@
+{
+  "meta.title": "PDF Ink to SVG",
+  "meta.description": "Extrae anotaciones de tinta manuscrita de un PDF como archivos SVG. Todo ocurre en tu navegador; no se sube nada.",
+  "skip": "Saltar a los resultados",
+  "language.label": "Idioma",
+  "theme.group": "Tema de color",
+  "theme.light": "Tema claro",
+  "theme.system": "Usar el tema del sistema",
+  "theme.dark": "Tema oscuro",
+  "theme.light.short": "Claro",
+  "theme.system.short": "Sistema",
+  "theme.dark.short": "Oscuro",
+  "repo": "Ver en GitHub",
+  "intro.title": "Convierte en SVG la escritura a mano de un PDF",
+  "intro.body": "Suelta aquí un PDF firmado o anotado con bolígrafo o lápiz digital. Cada trazo se convierte en un SVG nítido y escalable que puedes descargar, incluida la escritura a mano que se haya aplanado sobre la página.",
+  "dropzone.title": "Suelta un PDF aquí o elige un archivo",
+  "dropzone.hint": "Puedes añadir varios PDF a la vez.",
+  "option.keepPageSize": "Conservar las coordenadas de la página (el SVG abarca la página completa en lugar de recortarse al trazo)",
+  "privacy": "Tus archivos permanecen en tu dispositivo. Todo ocurre en esta pestaña del navegador: el PDF nunca se sube y no se envía nada a ningún sitio. Lo único que se guarda entre visitas son tus preferencias de tema e idioma.",
+  "results.title": "Trazos extraídos",
+  "results.downloadAll": "Descargar todo",
+  "results.clear": "Borrar",
+  "results.flattenedNote": "Los resultados marcados como {badge} se han encontrado buscando en la propia página trazos con aspecto de escritura a mano. Los gráficos vectoriales densos, como la línea de un gráfico, pueden parecer lo mismo: revisa la vista previa antes de descargar.",
+  "results.flattenedNote.badge": "Aplanado",
+  "footer": "Código abierto bajo la licencia MIT. Creado con {pdfjs}.",
+  "footer.pdfjs": "pdf.js",
+  "footer.version": "Versión {version}",
+  "card.download": "Descargar SVG",
+  "card.downloadLabel": "Descargar {name}",
+  "card.meta": "Página {page} · {strokes}, {points}",
+  "card.previewLabel": "{source} {index} de la página {page}",
+  "badge.annotation": "Anotación",
+  "badge.flattened": "Aplanado",
+  "badge.annotation.title": "Leído de una anotación de tinta del PDF",
+  "badge.flattened.title": "Recuperado de trazos dibujados en el contenido de la página",
+  "source.annotation": "anotación de tinta",
+  "source.flattened": "tinta aplanada",
+  "unit.stroke": {
+    "one": "{count} trazo",
+    "other": "{count} trazos"
+  },
+  "unit.point": {
+    "one": "{count} punto",
+    "other": "{count} puntos"
+  },
+  "unit.file": {
+    "one": "{count} archivo",
+    "other": "{count} archivos"
+  },
+  "unit.image": {
+    "one": "{count} imagen incrustada",
+    "other": "{count} imágenes incrustadas"
+  },
+  "unit.nonPdf": {
+    "one": "{count} archivo que no es PDF",
+    "other": "{count} archivos que no son PDF"
+  },
+  "status.onlyPdf": "Solo se pueden leer archivos PDF. Elige un archivo que termine en .pdf.",
+  "status.reading": "Leyendo {files}…",
+  "status.extracted": {
+    "one": "Se ha extraído {count} dibujo.",
+    "other": "Se han extraído {count} dibujos."
+  },
+  "status.allFlattened": "Recuperado de trazos aplanados en la página, no de anotaciones de tinta.",
+  "status.someFlattened": {
+    "one": "{count} de ellos estaba aplanado en la página en lugar de guardado como anotación de tinta.",
+    "other": "{count} de ellos estaban aplanados en la página en lugar de guardados como anotaciones de tinta."
+  },
+  "status.skipped": "Se ha omitido {files}.",
+  "status.nothing": "No se ha extraído nada.",
+  "problem.prefix": "{file}: {reason}",
+  "noInk.imageNote": " Las páginas sí contienen {images}, así que lo más probable es que la escritura se escaneara o rasterizara dentro de alguna de ellas; eso convierte los trazos en píxeles, que no se pueden recuperar como vectores. A partir de ahí, la única vía es calcarlos en un programa de dibujo.",
+  "noInk.none": "no hay anotaciones de tinta ni datos de trazos en el contenido de la página.",
+  "noInk.noneHint": " Si ves escritura a mano en la página, se dibujó de una forma que esta herramienta no lee: una imagen incrustada o texto con una tipografía caligráfica.",
+  "noInk.others": "no hay tinta. Este PDF contiene {list}, que no guardan trazos de bolígrafo.",
+  "annot.formField": {
+    "one": "{count} campo de formulario",
+    "other": "{count} campos de formulario"
+  },
+  "annot.hiddenInk": {
+    "one": "{count} anotación de tinta oculta",
+    "other": "{count} anotaciones de tinta ocultas"
+  },
+  "annot.inkNoPoints": {
+    "one": "{count} anotación de tinta sin datos de puntos",
+    "other": "{count} anotaciones de tinta sin datos de puntos"
+  },
+  "annot.other": {
+    "one": "{count} anotación de tipo {kind}",
+    "other": "{count} anotaciones de tipo {kind}"
+  },
+  "error.password": "este PDF está protegido con contraseña. Quita la contraseña e inténtalo de nuevo.",
+  "error.invalid": "este archivo no es un PDF válido o está dañado.",
+  "error.unknown": "no se ha podido leer.",
+  "subtype.stamp": "sello",
+  "subtype.square": "rectángulo",
+  "subtype.circle": "elipse",
+  "subtype.highlight": "resaltado",
+  "subtype.underline": "subrayado",
+  "subtype.strikeout": "tachado",
+  "subtype.squiggly": "subrayado ondulado",
+  "subtype.freetext": "texto libre",
+  "subtype.text": "nota adhesiva",
+  "subtype.line": "línea",
+  "subtype.polygon": "polígono",
+  "subtype.polyline": "polilínea",
+  "subtype.link": "enlace",
+  "subtype.popup": "ventana emergente",
+  "subtype.fileattachment": "archivo adjunto"
+}
